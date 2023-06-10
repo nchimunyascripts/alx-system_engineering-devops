@@ -1,17 +1,22 @@
 # Postmortem
-![what just happened.(meme)](https://s3.memeshappen.com/memes/what-just-happened-.jpg)
+![what just happened.(meme)](https://s3.memeshappen.com/memes/what-just-happened-.jpg) 
 ## Issue Summary:
-on 09-06-2023 3:00 pm CAT, i was unble to ssh to my web-server_1 with service reinsteated at 3:30 pm both web-servers wear able to function properly  The root cause of the outage was when installing firwell i forgot to allow connection on port 22/TCP and loged out 
+
+On 09-06-2023 at 3:00 pm CAT, I experienced an SSH connectivity issue with my web-server_1. The service was reinstated at 3:30 pm, and both web-servers resumed normal functioning. The root cause of the outage was my oversight during the installation of the firewall. I forgot to allow connections on port 22/TCP and inadvertently logged out.
 
 ## Timeline for 9/06/23 (CAT):
-**3:00 pm:** after installing firwall and loging out i tried to get back in and recived `Connection refused` message 
-**3:20 pm:** i used the command `sudo lsof -i -P -n | grep LISTEN` to see if its listenning on port 22
-**3:22 pm:** i discovered that it was not lestinning on port `22/tcp`
-**3:30 pm:** i requested new web-server installed all the neccessary files again and redo all the tasks on web-01 that was lost
+
+**3:00 pm:** After installing the firewall and logging out, I attempted to reconnect but received a `Connection refused` message.
+**3:20 pm:** To investigate, I ran the command `sudo lsof -i -P -n | grep LISTEN` to check if the server was listening on port 22.
+**3:22 pm:** I discovered that the server was not listening on port `22/TCP`.
+**3:30 pm:** I requested a new web-server installation and reinstalled all necessary files, effectively redoing all the tasks on web-01 that were lost.
 
 ## Root cause and resolution:
-The root cause is forgetting to allow connection on `port 22` while installing `firwall(ufw)` when i configure the new server i made sure that ssh connection was allowed by using the command `$ sudo ufw allow 22/tcp`
+
+The root cause of the issue was my failure to allow connections on port 22 during the firewall installation (ufw). To resolve the problem, I ensured that SSH connections were permitted by executing the command `$ sudo ufw allow 22/tcp` during the configuration of the new server.
+
 ## Corrective and preventative measures:
-To prevent such kind of issues from happening again i made sure to cheack all the time on what ports is the server listening to before running any command  
+
+To prevent similar issues from occurring in the future, I will consistently check the server's listening ports before executing any commands. This proactive approach will help avoid overlooking crucial configurations and maintain smooth operations.
 
 
