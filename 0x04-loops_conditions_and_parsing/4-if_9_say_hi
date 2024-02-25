@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# print holberton school 10 times using while loop and if condition
+# print "Best School" 10 times using while loop and if condition
 
 declare -i idx=0
 while (( idx < 10 ))
 do
-    echo "Holberton School"
+    echo "Best School"
     if (( idx == 8 ))
 	then
 	echo "Hi"
